@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <!-- saved from url=(0051)https://ab00a.github.io/page1.html -->
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>How to Make an Analogue Clock with HTML5 Canvas and Javascript</title>
     <script type="text/javascript" src="./js/clockforchrome.js"></script>
     <link rel="stylesheet" type="text/css" href="./style/clockforchrome.css">
@@ -10,13 +13,14 @@
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
             }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-42595703-1', 'clockforchrome.appspot.com');
         ga('send', 'pageview');
-	</script>
+    </script>
 </head>
+
 <body>
     <div id="pagepane">
         <div id="top">
@@ -35,59 +39,111 @@
             <div id="midleft">
 
                 <div id="topmidleft">
-                  <ul id="contentsnav">
-                    <li><a class="selected" href="https://ab00a.github.io/index.html">Working with a canvas</a></li>
-                    <li><a class="unselected" href="https://ab00a.github.io/page2.html">Clock Hands</a></li>
-                    <li><a class="unselected" href="https://ab00a.github.io/page3.html">Clock Face</a></li>
-                    <li><a class="unselected" href="https://ab00a.github.io/page4.html">How it Looks</a></li>
-                    <li><a class="unselected" href="https://ab00a.github.io/page5.html">Making it Tick</a></li>
-                    <li><a class="unselected" href="https://ab00a.github.io/page6.html">Further Reading</a></li>
-                  </ul>
+                    <ul id="contentsnav">
+                        <li><a class="selected" href="https://ab00a.github.io/index.html">Working with a canvas</a></li>
+                        <li><a class="unselected" href="https://ab00a.github.io/page2.html">Clock Hands</a></li>
+                        <li><a class="unselected" href="https://ab00a.github.io/page3.html">Clock Face</a></li>
+                        <li><a class="unselected" href="https://ab00a.github.io/page4.html">How it Looks</a></li>
+                        <li><a class="unselected" href="https://ab00a.github.io/page5.html">Making it Tick</a></li>
+                        <li><a class="unselected" href="https://ab00a.github.io/page6.html">Further Reading</a></li>
+                    </ul>
                 </div>
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0829514606350414" crossorigin="anonymous"></script>
+                <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0829514606350414"
+                    crossorigin="anonymous"></script>
             </div>
             <div id="midmid">
                 <div id="midmidtitle">Basics of the HTML5 Canvas</div>
                 <div id="midmidcontent">
                     <div id="content" class="showndiv">
-                        <p>In this tutorial, I will show you how to draw a clock using the HTML5 canvas element and Javascript.</p>
-                        <p>This is the technique used in my <a href="http://clockforchrome.appspot.com/">Clock for Google Chrome™ Extension</a>. Other tutorials and techniques are available, but what I hope to do here is not just tell you <b>what</b> to do, but <b>why</b>.</p>
-                        <p></p>The clock that we end up with will be fully customisable so by using this, you can achieve your own look and feel.<p></p>
-                        <p>Before we dive in, let's begin by looking at the HTML5 canvas element and why we should use it for our clock.</p>
-                        <p>The clock is basically a moving picture. We could use old school <code>&lt;img&gt;</code> tags, but creating one of those for every combination of minutes and hours and overlaying them would be complicated and cumbersome. Or we could use Flash, but...</p>
-                        <p>...well, we don't want to use Flash because it takes longer to load, requires plugins, isn't supported on many devices (especially mobile) and generally speaking, is complete overkill or something as simple as a clock.</p>
-                        <p>The <a href="http://www.w3schools.com/html/html5_canvas.asp">HTML5 canvas element</a> provides an HTML element that we can draw upon using Javascript to render our clock dynamically without using static image files. It is natively supported on all <a href="http://www.w3schools.com/html/html5_canvas.asp">modern browsers</a> and requires no plugins or additional configuration.</p>
-                        <p>As long as one is using an HTML5-compliant browser (you probably are these days), one can create a canvas element thus:</p>
+                        <p>In this tutorial, I will show you how to draw a clock using the HTML5 canvas element and
+                            Javascript.</p>
+                        <p>This is the technique used in my <a href="http://clockforchrome.appspot.com/">Clock for
+                                Google Chrome™ Extension</a>. Other tutorials and techniques are available, but what I
+                            hope to do here is not just tell you <b>what</b> to do, but <b>why</b>.</p>
+                        <p></p>The clock that we end up with will be fully customisable so by using this, you can
+                        achieve your own look and feel.<p></p>
+                        <p>Before we dive in, let's begin by looking at the HTML5 canvas element and why we should use
+                            it for our clock.</p>
+                        <p>The clock is basically a moving picture. We could use old school <code>&lt;img&gt;</code>
+                            tags, but creating one of those for every combination of minutes and hours and overlaying
+                            them would be complicated and cumbersome. Or we could use Flash, but...</p>
+                        <p>...well, we don't want to use Flash because it takes longer to load, requires plugins, isn't
+                            supported on many devices (especially mobile) and generally speaking, is complete overkill
+                            or something as simple as a clock.</p>
+                        <p>The <a href="http://www.w3schools.com/html/html5_canvas.asp">HTML5 canvas element</a>
+                            provides an HTML element that we can draw upon using Javascript to render our clock
+                            dynamically without using static image files. It is natively supported on all <a
+                                href="http://www.w3schools.com/html/html5_canvas.asp">modern browsers</a> and requires
+                            no plugins or additional configuration.</p>
+                        <p>As long as one is using an HTML5-compliant browser (you probably are these days), one can
+                            create a canvas element thus:</p>
                         <p><code>&lt;canvas id='clockcanvas'&gt;&lt;/canvas&gt;</code></p>
                         <p>So far, so good.</p>
                         <p>This canvas will dictate how big our clock is, so we need to give it a size.</p>
-                        <p>This clock will be round, so the canvas will the same height and width (i.e. a square). Now here's a really annoying thing that we have to consider with the <code>canvas</code> element. If we set the size in CSS like this:</p>
+                        <p>This clock will be round, so the canvas will the same height and width (i.e. a square). Now
+                            here's a really annoying thing that we have to consider with the <code>canvas</code>
+                            element. If we set the size in CSS like this:</p>
                         <p><code>.clockcanvas {height: 100px; width: 100px;}</code></p>
-                        <p>...strange things happen. This is because the <code>canvas</code> is actually created with a default size of 300px by 150px and then the CSS specification merely <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#attr-canvas-width">stretches</a> the canvas to the specified size instead of resizing it. This has horrible effects on the things we draw on it and means that our clock will end up squashed up on the left half of the canvas. Therefore, and this goes against every fibre of my Web 2.0 being, we need to explicitly set the size of the canvas in HTML:</p>
+                        <p>...strange things happen. This is because the <code>canvas</code> is actually created with a
+                            default size of 300px by 150px and then the CSS specification merely <a
+                                href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#attr-canvas-width">stretches</a>
+                            the canvas to the specified size instead of resizing it. This has horrible effects on the
+                            things we draw on it and means that our clock will end up squashed up on the left half of
+                            the canvas. Therefore, and this goes against every fibre of my Web 2.0 being, we need to
+                            explicitly set the size of the canvas in HTML:</p>
                         <p><code>&lt;canvas id='clockcanvas' height='100' width='100'&gt;&lt;/canvas&gt;</code></p>
-                        <p>I'm sure that somebody somwehere has a good reason why a) a canvas element has a default size and b) why its contents are stretched on a resize, but I simply cannot understand why this would be beneficial at all. But hey, maybe that's just my opinion.</p>
-                        <p>OK, so now we have a 100px square canvas on an otherwise empty page, a blank canvas if you will! Now it's time to take a look at how locations on the canvas are referenced. In its default form, as we see it now, the origin (position 0,0) is located at the top left and the x and y axes run left to right and top to bottom respectively from the origin:</p>
+                        <p>I'm sure that somebody somwehere has a good reason why a) a canvas element has a default size
+                            and b) why its contents are stretched on a resize, but I simply cannot understand why this
+                            would be beneficial at all. But hey, maybe that's just my opinion.</p>
+                        <p>OK, so now we have a 100px square canvas on an otherwise empty page, a blank canvas if you
+                            will! Now it's time to take a look at how locations on the canvas are referenced. In its
+                            default form, as we see it now, the origin (position 0,0) is located at the top left and the
+                            x and y axes run left to right and top to bottom respectively from the origin:</p>
                         <p class="image"><img src="./assets/canvas1.png" alt="Default canvas coordinates"></p>
-                        <p>Now, here's where it starts to get interesting. We could, if we so chose, use this coordinate system to work out where to draw the clock's hands at any given time. We would need to use some <a href="http://inventwithpython.com/blog/2012/07/18/using-trigonometry-to-animate-bounces-draw-clocks-and-point-cannons-at-a-target/">trigonometry</a> to work out where each end of each hand would be at any given time and draw a line between these two points.</p>
+                        <p>Now, here's where it starts to get interesting. We could, if we so chose, use this coordinate
+                            system to work out where to draw the clock's hands at any given time. We would need to use
+                            some <a
+                                href="http://inventwithpython.com/blog/2012/07/18/using-trigonometry-to-animate-bounces-draw-clocks-and-point-cannons-at-a-target/">trigonometry</a>
+                            to work out where each end of each hand would be at any given time and draw a line between
+                            these two points.</p>
                         <p>But that's not how a clock works.</p>
-                        <p>A real clock's origin is the <b>centre</b>, not the top corner, and instead of drawing hands in various locations, it simply rotates them at different speeds. Fortunately, the HTML5 canvas element provides <code>translate()</code> and <code>rotate()</code> functions which let us do the same. Let's take a closer look.</p>
-                        <p>The <code>translate()</code> function simply moves the origin of the canvas's coordinate grid</p>
+                        <p>A real clock's origin is the <b>centre</b>, not the top corner, and instead of drawing hands
+                            in various locations, it simply rotates them at different speeds. Fortunately, the HTML5
+                            canvas element provides <code>translate()</code> and <code>rotate()</code> functions which
+                            let us do the same. Let's take a closer look.</p>
+                        <p>The <code>translate()</code> function simply moves the origin of the canvas's coordinate grid
+                        </p>
                         <p><b>NB: It does NOT move the canvas, only the coordinate grid overlaying it!</b></p>
-                        <p>We'll look at how we fit this in to our Javascript in the next section, but for now we'll just look at the concept. First we need to ask the canvas element for a reference to its coordinate grid. This is called the <code>context</code>.</p>
+                        <p>We'll look at how we fit this in to our Javascript in the next section, but for now we'll
+                            just look at the concept. First we need to ask the canvas element for a reference to its
+                            coordinate grid. This is called the <code>context</code>.</p>
                         <p><code>var c = document.querySelector('clockcanvas').getContext("2d");</code></p>
                         <p>"Eh?", I hear you ask, "'2d'? Does that mean there are other 'contexts' available too?"</p>
-                        <p>Nope. I guess one day there might be in the hyper-4d-timespaceweb or something, but for now, we are <a href="http://diveintohtml5.info/canvas.html">limited to a 2d canvas</a> on our 2d screens.</p>
+                        <p>Nope. I guess one day there might be in the hyper-4d-timespaceweb or something, but for now,
+                            we are <a href="http://diveintohtml5.info/canvas.html">limited to a 2d canvas</a> on our 2d
+                            screens.</p>
                         <p>Once we have the context, we can translate it thus:</p>
                         <p><code>var size = document.querySelector('clockcanvas').height / 2;</code></p>
                         <p><code>c.translate(size, size);</code></p>
-                        <p>This code moves the origin of the coordinate system to the middle of the canvas, which is exactly where we want to work from because that's exactly where a real clock works from:</p>
+                        <p>This code moves the origin of the coordinate system to the middle of the canvas, which is
+                            exactly where we want to work from because that's exactly where a real clock works from:</p>
                         <p class="image"><img src="./assets/canvas2.png" alt="Central Origin"></p>
-                        <p>And finally, in this introductory section, let's look at <code>rotate</code>. It's quite simple to use, as long as you stick to the use of <a href="http://www.bbc.co.uk/bitesize/higher/maths/trigonometry/radian_and_equations/revision/1/">radians</a> rather than degrees.</p>
-                        <p>So if we wanted to rotate the canvas's context (<b>not the canvas itself remember!</b>) by 45 degrees, we simply say:</p>
+                        <p>And finally, in this introductory section, let's look at <code>rotate</code>. It's quite
+                            simple to use, as long as you stick to the use of <a
+                                href="http://www.bbc.co.uk/bitesize/higher/maths/trigonometry/radian_and_equations/revision/1/">radians</a>
+                            rather than degrees.</p>
+                        <p>So if we wanted to rotate the canvas's context (<b>not the canvas itself remember!</b>) by 45
+                            degrees, we simply say:</p>
                         <p><code>c.rotate(Math.pi /4);</code></p>
                         <p class="image"><img src="./assets/canvas3.png" alt="Rotated grid"></p>
-                        <p>Any line that is drawn along one of the axes will therefore be rotated by the amount specified in the <code>rotate</code> method, just like the hand of a clock.</p>
-                        <p>OK, so now we know that we're going to use a canvas element to draw our clock and we know that we are going to use the transform and the rotate functions to make it behave like a clock. In the <a href="https://ab00a.github.io/page2.html">next section</a>, we'll be looking at creating a javascript function to draw a simple clock with hour, minute and second hands.</p>
+                        <p>Any line that is drawn along one of the axes will therefore be rotated by the amount
+                            specified in the <code>rotate</code> method, just like the hand of a clock.</p>
+                        <p>OK, so now we know that we're going to use a canvas element to draw our clock and we know
+                            that we are going to use the transform and the rotate functions to make it behave like a
+                            clock. In the <a href="https://ab00a.github.io/page2.html">next section</a>, we'll be
+                            looking at creating a javascript function to draw a simple clock with hour, minute and
+                            second hands.</p>
                     </div>
                     <div id="midad">
                     </div>
@@ -95,7 +151,9 @@
             </div>
             <div id="midright">
                 <div id="midmidleft">
-                
-        </div>
-    </div>
-</body></html>
+
+                </div>
+            </div>
+</body>
+
+</html>

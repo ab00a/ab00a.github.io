@@ -1,83 +1,95 @@
 <!DOCTYPE html>
 <!-- saved from url=(0051)https://ab00a.github.io/page5.html -->
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <title>How to Make an Analogue Clock with HTML5 Canvas and Javascript</title>
   <script type="text/javascript" src="./js/clockforchrome.js"></script>
-    <link rel="stylesheet" type="text/css" href="./style/clockforchrome.css"><script>
+  <link rel="stylesheet" type="text/css" href="./style/clockforchrome.css">
+  <script>
     (function (i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
         (i[r].q = i[r].q || []).push(arguments)
       }, i[r].l = 1 * new Date(); a = s.createElement(o),
-      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-42595703-1', 'clockforchrome.appspot.com');
     ga('send', 'pageview');
-	</script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0829514606350414" crossorigin="anonymous"></script>
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0829514606350414"
+    crossorigin="anonymous"></script>
 </head>
+
 <body>
   <div id="pagepane">
     <div id="top">
-        <div id="topleft">
-        </div>
-        <div id="topmid">
-          <img src="./assets/560Banner.png" alt="Clock for Google Chrome�" id="banner">
-          <div id="titletext">How to Make an Analogue Clock with the HTML5 Canvas and Javascript</div>
-        </div>
-        <div id="topright">
+      <div id="topleft">
+      </div>
+      <div id="topmid">
+        <img src="./assets/560Banner.png" alt="Clock for Google Chrome�" id="banner">
+        <div id="titletext">How to Make an Analogue Clock with the HTML5 Canvas and Javascript</div>
+      </div>
+      <div id="topright">
+      </div>
+    </div>
+    <div id="mid">
+      <div id="midleft">
+        <div id="topmidleft">
+          <ul id="contentsnav">
+            <li><a class="unselected" href="https://ab00a.github.io/index.html">Working with a canvas</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page2.html">Clock Hands</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page3.html">Clock Face</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page4.html">How it Looks</a></li>
+            <li><a class="selected" href="https://ab00a.github.io/page5.html">Making it Tick</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page6.html">Further Reading</a></li>
+          </ul>
         </div>
       </div>
-      <div id="mid">
-        <div id="midleft">
-          <div id="topmidleft">
-            <ul id="contentsnav">
-              <li><a class="unselected" href="https://ab00a.github.io/index.html">Working with a canvas</a></li>
-              <li><a class="unselected" href="https://ab00a.github.io/page2.html">Clock Hands</a></li>
-              <li><a class="unselected" href="https://ab00a.github.io/page3.html">Clock Face</a></li>
-              <li><a class="unselected" href="https://ab00a.github.io/page4.html">How it Looks</a></li>
-              <li><a class="selected" href="https://ab00a.github.io/page5.html">Making it Tick</a></li>
-              <li><a class="unselected" href="https://ab00a.github.io/page6.html">Further Reading</a></li>
-            </ul>
-          </div>
-          <script type="text/javascript"><!--
-            google_ad_client = "ca-pub-0829514606350414";
-            google_ad_slot = "9730767064";
-            google_ad_width = 120;
-            google_ad_height = 600;
-            //-->
-          </script>
-          <script type="text/javascript" src="./How to Make an Analogue Clock with HTML5 Canvas and Javascript5_files/f.txt">
-          </script>
-        </div>
-        <div id="midmid">
+      <div id="midmid">
         <div id="midmidtitle">Making it tick</div>
         <div id="midmidcontent">
-        <div id="content" class="showndiv">
-          <p><a href="https://ab00a.github.io/page1.html">Pre</a><a href="https://ab00a.github.io/page2.html">vi</a><a href="https://ab00a.github.io/page3.html">ou</a><a href="https://ab00a.github.io/page4.html">sly</a> we have learned how to draw a clock, and that's what we set out to do originally. So, job done right?</p>
-          <p>Not quite.</p>
-          <p>Real clocks tick and keep the time.</p>
-          <p>This where wrapping the logic to draw the clock within a function really pays off because we can simply use <code><a href="http://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval</a></code> to update the clock every second like this:</p>
-          <p><code>setInterval(paintClock, 1000);</code></p>
-          <p>Easy peasy.</p>
-          <p>Drawing a clock does use up computing resources remember, so it may be worth having a think about how you want to implement this. If you don't use a second hand for example, you probably don't need to update every second. In my <a href="https://chrome.google.com/webstore/detail/clock-for-google-chrome/emakkfldeggiinnfcdjkakdfcppbfhdg">Chrome extension</a> I make use of Chrome APIs to "lazy load" my clock so that it only updates when it needs to and doesn't get in the way of more important tasks.</p>
-          <p>I'm being deliberately light on details here because the way that you implement your clock is entirely up to you.</p>
-          <p>On the <a href="https://ab00a.github.io/page6.html">next page</a> I have included some references to sites that provide some interesting further reading plus some ideas for further improvements and enhancements to the clock. If you have any questions or comments, just <a href="https://plus.google.com/+ClockforchromeAppspot/posts">let me know</a>.</p>
+          <div id="content" class="showndiv">
+            <p><a href="https://ab00a.github.io/page1.html">Pre</a><a href="https://ab00a.github.io/page2.html">vi</a><a
+                href="https://ab00a.github.io/page3.html">ou</a><a href="https://ab00a.github.io/page4.html">sly</a> we
+              have learned how to draw a clock, and that's what we set out to do originally. So, job done right?</p>
+            <p>Not quite.</p>
+            <p>Real clocks tick and keep the time.</p>
+            <p>This where wrapping the logic to draw the clock within a function really pays off because we can simply
+              use <code><a href="http://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval</a></code> to
+              update the clock every second like this:</p>
+            <p><code>setInterval(paintClock, 1000);</code></p>
+            <p>Easy peasy.</p>
+            <p>Drawing a clock does use up computing resources remember, so it may be worth having a think about how you
+              want to implement this. If you don't use a second hand for example, you probably don't need to update
+              every second. In my <a
+                href="https://chrome.google.com/webstore/detail/clock-for-google-chrome/emakkfldeggiinnfcdjkakdfcppbfhdg">Chrome
+                extension</a> I make use of Chrome APIs to "lazy load" my clock so that it only updates when it needs to
+              and doesn't get in the way of more important tasks.</p>
+            <p>I'm being deliberately light on details here because the way that you implement your clock is entirely up
+              to you.</p>
+            <p>On the <a href="https://ab00a.github.io/page6.html">next page</a> I have included some references to
+              sites that provide some interesting further reading plus some ideas for further improvements and
+              enhancements to the clock. If you have any questions or comments, just <a
+                href="https://plus.google.com/+ClockforchromeAppspot/posts">let me know</a>.</p>
+          </div>
+          <div id="midad">
+          </div>
         </div>
-        <div id="midad">
+      </div>
+      <div id="midright">
+        <div id="midmidleft">
+
+        </div>
+        <div id="botmidleft">
         </div>
       </div>
     </div>
-    <div id="midright">
-      <div id="midmidleft">
+    <div id="bot">
 
-      </div>
-      <div id="botmidleft">
-      </div>
     </div>
   </div>
-  <div id="bot">
+</body>
 
-  </div>
-</div>
-</body></html>
+</html>
