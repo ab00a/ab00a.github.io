@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://ab00a.github.io/page3.html -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>How to Make an Analogue Clock with HTML5 Canvas and Javascript</title>
+    <script type="text/javascript" src="./js/clockforchrome.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style/clockforchrome.css">
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+  
+      ga('create', 'UA-42595703-1', 'clockforchrome.appspot.com');
+      ga('send', 'pageview');
+  	</script>
+  </head>
+  <body>
+    <div id="pagepane">
+      <div id="top">
+        <div id="topleft">
+        </div>
+        <div id="topmid">
+          <img src="./How to Make an Analogue Clock with HTML5 Canvas and Javascript3_files/560Banner.png" alt="Clock for Google Chrome�" id="banner">
+          <div id="titletext">How to Make an Analogue Clock with the HTML5 Canvas and Javascript</div>
+        </div>
+        <div id="topright">
+        </div>
+      </div>
+      <div id="mid">
+        <div id="midleft">
+          <div id="topmidleft">
+            <ul id="contentsnav">
+              <li><a class="unselected" href="https://ab00a.github.io/index.html">Working with a canvas</a></li>
+              <li><a class="unselected" href="https://ab00a.github.io/page2.html">Clock Hands</a></li>
+              <li><a class="selected" href="https://ab00a.github.io/page3.html">Clock Face</a></li>
+              <li><a class="unselected" href="https://ab00a.github.io/page4.html">How it Looks</a></li>
+              <li><a class="unselected" href="https://ab00a.github.io/page5.html">Making it Tick</a></li>
+              <li><a class="unselected" href="https://ab00a.github.io/page6.html">Further Reading</a></li>
+            </ul>
+          </div>
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0829514606350414" crossorigin="anonymous"></script>
+        </div>
+        <div id="midmid">
+          <div id="midmidtitle">Numbers, borders and markers</div>
+          <div id="midmidcontent">
+            <div id="content" class="showndiv">
+              <p>Now that we have a functional, albeit rudimentary clock, we can start making it look good, like a real clock.</p>
+              <h2>Border</h2>
+              <p>Adding a border is really, really easy as the <code>canvas</code> element includes native functions which let us draw one with just a few lines of code:</p>
+              <p><code>if (options.borderwidth &gt; 0) {</code></p>
+              <p class="indent"><code>c.beginPath();</code></p>
+              <p class="indent"><code>c.lineWidth = size * options.borderwidth / 100;</code></p>
+              <p class="indent"><code>c.arc(0, 0, size - (size * opt.borderwidth / 100), 0, 2 * Math.PI);</code></p>
+              <p class="indent"><code>c.stroke();</code></p>
+              <p><code>}</code></p>
+              <p>This piece of code checks whether a borderwidth has been set in the options and if it has, it draws an <a href="http://www.w3schools.com/tags/canvas_arc.asp">arc</a> with its origin at the centre (0,0), a radius of the size of the clock (minus the width of the line to account for the line itself), starting at angle 0 and progressing 2 pi radians (360 degrees).</p>
+              <p><img src="./assets/canvas9.png"></p>
+              <p>I'll pause for a moment to explain why we're using <code>size * options.borderwidth / 100</code> rather than just <code>options.borderwidth</code>. This is because the intention behind the construction of the clock in this way is to keep its look and feel consistent independently of the overall size of the clock. The dimensions that are specified in the options are therefore translated into percentages of the clock size rather than used as-is. Thus, specifying "5" as the border width will result in a border thickness that is 5% the radius of the clock. This will therefore expand and contract depending on the overall size of the clock. When we put all the components together <a href="https://ab00a.github.io/page4.html">later</a> the usefulness of this will become apparent.</p>
+              <p>Looking better! Let's press on and add some</p>
+              <h2>Tick Marks</h2>
+              <p>By "tick marks" I refer to the little lines that go around the edge of the clock to indicate the hour marks. We've looked at the concept of drawing lines and rotating the <code>canvas context</code> previously and we are going to use the same technique to draw the tick marks.</p>
+              <p>Let's think about the logic, each little line needs to be drawn near the edge of the clock, but not so close that it overlaps the border. In fact, it would be a good idea if there was a configurable gap between the inner edge of the clock border and the start of the line itself.</p>
+              <p>There are a few options concerning tick marks appearance that we should set. In line with the rest of the options that we are using, we will put each of these in the options object when we call the function to draw the clock. Options to include are the length of each tick mark, the width of each tick mark, the gap between the tick mark and the edge and the number of tick marks. If no tick marks are specified, no tick marks are drawn.</p>
+              <p><img src="./assets/zoom2.png"></p>
+              <p>In the image above, "a" is the tick length, "b" is the gap and "c" is the width.</p>
+              <p>It makes sense then to <code>moveTo</code> the outer end first and then draw a line inwards towrds the centre.</p>
+              <p>To make the little tick marks, we should start at zero rotation and then rotate by 2*PI/n radians (where n is the number of tick marks required) between each tick mark. Let's see what that looks like:</p>
+          		<p><code>//Tick Marks</code></p>
+            	<p><code>if (parseInt(opt.ticknumber, 10) &gt; 0) {</code></p>
+                <p class="indent"><code>for (i = 0; i &lt; parseInt(opt.ticknumber, 10); i++) {</code></p>
+                  <p class="indentindent"><code>c.beginPath();</code></p>
+                  <p class="indentindent"><code>c.lineWidth = size * opt.tickwidth / 100;</code></p>
+                  <p class="indentindent"><code>c.moveTo(0, size  - (size * opt.borderWidth / 100) - (size * opt.tickgap / 100));</code></p>
+                  <p class="indentindent"><code>c.lineTo(0, size  - (size * opt.borderWidth / 100) - (size * opt.tickgap / 100) - (size * opt.ticklen / 100));</code></p>
+                  <p class="indentindent"><code>c.stroke();</code></p>
+                  <p class="indentindent"><code>c.rotate((2 * Math.PI) / opt.ticknumber);</code></p>
+                <p class="indent"><code>}</code></p>
+              <p><code>}</code></p>
+            	<p>For completeness, here is an excerpt of the code to set the ticks options (it's all put together at the bottom of the page)</p>
+              <p><code>paintClock(document.querySelector("#clockcanvas"), </code></p>
+              <p class="indent"><code>{ticknumber: 12,</code></p>
+              <p class="indent"><code>ticklen: 4,</code></p>
+              <p class="indent"><code>tickgap: 2,</code></p>
+              <p class="indent"><code>tickwidth: 1,</code></p>
+              <p><code>);</code></p>
+              <p>Remember that these numbers are relative, not absolute. In this example, the tick gap will be 2% of the clock radius, not 2px.</p>
+              <h2>Numbers</h2>
+              <p>In this section, we will demonstrate how it is possible to "draw" text on a canvas. Again, this uses completely native functions, but the complexity comes from getting the numbers in the right positions.</p>
+              <p>Initially, we set the size of the font in pixels using the <code>font</code> attribute of the <code>canvas context</code></p>
+              <p><code>c.font = fontheight + "px sans-serif";</code></p>
+              <p>Fontheight is of course, an option that we set when we call the function to draw the clock. Then, we work out how far from the left and right edges of the clock the centre of the "9" and the "3" respectively need to be. Let's examine that zoomed in area of our clock again:</p>
+              <p><img src="./assets/zoom1.png"></p>
+              <p>In this picture, you can see that, starting at the outer edge of our clock (which is "<code>size</code>" from the origin in the middle at 0,0), we need to move inwards by the width of the border (e), the gap between the border and the tick mark (d), the length of the tick mark (c) the gap between the tick mark and the number (b) and half of the number's width (a/2).</p>
+              <p>The borderwidth, tick mark length and tick mark gaps can be specified in our options, but the width of the number needs to be calculated. Fortunately, the <code>canvas context</code> comes to our rescue again with the <code>measureText</code> function. This accepts a string of text as the argument and returns the size as it would be drawn on the current context. Thus, in our example:</p>
+              <p>a = <code>c.measureText("3").width</code></p>
+              <p>We can use the same measurements for both the 3 and the 9, but we need to use negative values for the 9 instead as we'll be counting in from the left rather than in from the right.</p>
+              <p>As we are using the middle of the number to align it to the right place, we need to tell the <code>context</code> to centre the text at the coordinates we give it. To do that we use the following lines:</p>
+              <p class="indent"><code>c.textAlign = "center";</code></p>
+            	<p class="indent"><code>c.textBaseline = "middle";</code></p>
+            	<p>For the "12" and the "6" we follow the same idea, but we already know the height of the text as it's the same as the pixel size we specified in <code>fontheight</code> from our options.</p>
+            	<p>Putting it together, the code looks like this:</p>
+          		<p><code>//Numbers</code></p>
+            	<p><code>if (parseInt(opt.numbersze, 10) &gt; 0) {</code></p>
+              <p class="indent"><code>fontheight = size * (opt.numbersze / 100);</code></p>
+              <p class="indent"><code>c.font = fontheight + "px sans-serif";</code></p>
+              <p class="indent"><code>var fontcent39 = size  - (size * opt.borderWidth / 100) - (size * opt.tickgap / 100) - (size * opt.ticklen / 100) - (size * opt.tickgap / 100) - c.measureText("9").width / 2;</code></p>
+              <p class="indent"><code>var fontcent126 = size  - (size * opt.borderWidth / 100) - (size * opt.tickgap / 100) - (size * opt.ticklen / 100) - (size * opt.tickgap / 100) - (fontheight / 2);</code></p>
+              <p class="indent"><code>c.textAlign = "center";</code></p>
+              <p class="indent"><code>c.textBaseline = "middle";</code></p>
+              <p class="indent"><code>c.fillText("12", 0, -fontcent126);</code></p>
+              <p class="indent"><code>c.fillText("6", 0, fontcent126);</code></p>
+              <p class="indent"><code>c.fillText("9", -fontcent39, 0);</code></p>
+              <p class="indent"><code>c.fillText("3", fontcent39, 0);</code></p>
+              <p><code>}</code></p>
+              <p>And we're almost there! We have learned about the canvas element, we've learned how to draw hands on it and we've learned how to put a border round it, numbers on the clock face and tick marks around the edge. The <a href="https://ab00a.github.io/page4.html">next page</a> has an interactive demonstration of how much customisation this provides.</p>
+            </div>
+            <div id="midad">
+            </div>
+          </div>
+        </div>
+        <div id="midright">
+          <div id="midmidleft">
+      </div>
+    </div>
+
+  
+
+</body></html>

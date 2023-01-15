@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://ab00a.github.io/page2.html -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>How to Make an Analogue Clock with HTML5 Canvas and Javascript</title>
+  <script type="text/javascript" src="./js/clockforchrome.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style/clockforchrome.css">
+	<script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-42595703-1', 'clockforchrome.appspot.com');
+    ga('send', 'pageview');
+	</script>
+</head>
+<body>
+  <div id="pagepane">
+    <div id="top">
+      <div id="topleft">
+      </div>
+      <div id="topmid">
+        <img src="./assets/560Banner.png" alt="Clock for Google Chrome�" id="banner">
+        <div id="titletext">How to Make an Analogue Clock with the HTML5 Canvas and Javascript</div>
+      </div>
+      <div id="topright">
+      </div>
+    </div>
+    <div id="mid">
+      <div id="midleft">
+        <div id="topmidleft">
+          <ul id="contentsnav">
+            <li><a class="unselected" href="https://ab00a.github.io/index.html">Working with a canvas</a></li>
+            <li><a class="selected" href="https://ab00a.github.io/page2.html">Clock Hands</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page3.html">Clock Face</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page4.html">How it Looks</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page5.html">Making it Tick</a></li>
+            <li><a class="unselected" href="https://ab00a.github.io/page6.html">Further Reading</a></li>
+          </ul>
+        </div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0829514606350414" crossorigin="anonymous"></script>
+            </div>
+            <div id="midmid">
+                <div id="midmidtitle">Drawing the Hands</div>
+                <div id="midmidcontent">
+                    <div id="content" class="showndiv">
+                        <p>So far, we've worked out that the best way to draw a clock is to make the canvas element behave like a clock, with the origin at the centre around which the <code>context</code> rotates.</p>
+						<p>As long as the context has been rotated by the right amount, we just need to draw a straight line along one axis for our hands. Let me explain that in a bit more detail. If we go back to our unrotated <code>context</code>:</p>
+						<p><img src="./assets/canvas2.png"></p>
+						<p>and draw a line along the vertical axis, it's like it's pointing at 12 on our clock:</p>
+						<p><img src="./assets/canvas4.png"></p>
+						<p>If we rotate the <code>context</code> by 60 degrees (which is 60/360 of a full circle and therefore 2* pi * 60 / 360 radians), we have a hand pointing at 2 on our clock:</p>
+						<p><img src="./assets/canvas5.png"></p>
+						<p>Let's put that together in code, considering the minute hand first. We need to work out the angle that the minute hand subtends from the vertical at any given moment. It's quite easy to work out as long as we know the time. At X minutes past the hour, the minute hand is 360 * X/60 degrees round. But as we need to be working in radians, it's 2 * pi * X / 60.</p>
+						<p>So after we've <code>translate</code>d the canvas origin to the center, we <code>rotate</code> it by the appropriate angle and draw the line.</p>
+						<p>In order to get the value of the current minute, use the <code>Date()</code> function with <code>getMinutes()</code>.</p>
+						<p><code>var d = new Date();</code></p>
+						<p><code>var mins = d.getMinutes();</code></p><p>
+						</p><p><code>c.rotate((mins / 60) * (2 * Math.PI));</code></p>
+						<p>where 'c' is the 2d <code>context</code> of our canvas element.</p>
+						<p>On a real clock, the minute hand doesn't just jump forward every minute, it gradually moves with every second. So, for extra accuracy and a realistic movement, we should really account for the number of seconds through the minute in our angle too:</p>
+						<p><code>var secs = d.getSeconds();</code></p>
+						<p><code>c.rotate(((mins /60) + (secs / 3600)) * (2 * Math.PI));</code></p>
+						<p>There are 60 minutes in an hour and there are 3600 seconds in an hour, so we do the calculation this way to work out the ange that the minute hand needs to rotate to account for both the minutes and the seconds since the hour (0 radians)..</p>
+						<p>To draw the line, we'll use a few canvas functions. Initially, we need to specify that we're beginning a new drawing operation so we call <code>beginPath</code> thus:</p>
+						<p><code>c.beginPath();</code></p>
+						<p><code>beginPath</code> is used at the beginning of any set of drawing instructions on a <code>canvas</code>. It typically begins a drawing event and <code>stroke</code> ends it.</p>
+						<p>We then <code>moveTo</code> the starting point of our line, which (for now) is the centre of the canvas at (0,0).</p>
+						<p><code>c.moveTo(0,0);</code></p>
+						<p>and then draw a <code>lineTo</code> the end point. The end point is a negative value on the y-axis, because you'll remember that the positive values go from top to bottom, so if we want to draw a line upwards, we draw it to a negative value on the y-axis.</p>
+						<p><code>var minuteHandLength = -0.8 * (document.querySelector('clockcanvas').height / 2);</code></p>
+						<p><code>c.lineTo(0, minuteHandLength);</code></p>
+						<p>In this example, I've drawn the minute hand 80% (0.8) of the clock's radius. In our finished code later, you will see that we use a value for the length of the hands that is relative to the size of the clock rather than an absolute number. This allows us to create a look and feel for our clock which is independent of its finished size. We'll look at customising the look and feel of the clock later.</p>
+						<p>Before we actually draw the line, we need to specify the colour, thickness and style of the line. We can use the following to accomplish this:</p>
+						<p><code>c.fillStyle = "#000000";</code></p>
+						<p><code>c.strokeStyle = "#00000";</code></p>
+						<p><code>c.lineCap = "round";</code></p>
+						<p><code>c.lineWidth = 5;</code></p>
+						<p>Finally, we actually draw the line using <code>stroke</code>.</p>
+						<p><code>c.stroke();</code></p>
+						<p>But wait, the hands on a clock usually don't start right in the middle, but have a little overhang. (Interesting fact, on a mechanical clock, this is to provide a counterweight for the longer part of the hand to reduce wear on the mechanism and prolong its life.) To include this, instead of starting the line at 0,0, we start a little bit along the positive direction (down) of the y-axis. So now our code looks like this:</p>
+						<p><code>var minOverhang = 0.1;</code></p>
+						<p><code>c.moveTo(0, minOverhang);</code></p>
+						<p>Gives us this:</p>
+						<p><img src="./assets/canvas6.png"></p>
+						<p>When we put all this together subsequently, the code will look a bit different because rather than declaring dimensions like minOverhang at the time, we will wrap them all up in a parameter that will be sent to a generic function. This will allow a single clock draw function to cater for all the different styles that we choose.</p>
+						<p>That's our minute hand done, now for the hour hand. We will use a very similar method to draw it, but first, we should rotate the <code>context</code> back to its original position ready for the next operation. Note that when we drew the hour hand, we used the <code>context</code> to put it in the right place, but the line was drawn on the canvas itself, so the line we drew does not rotate back with the context.</p>
+						<p><code>c.rotate(((mins / 60) + (secs / 3600)) * (-2 * Math.PI));</code></p>
+						<p>To return to this:</p>
+						<p><img src="./assets/canvas7.png"></p>
+						<p>To rotate the <code>context</code> by the right amount for the hour hand (catering for both hours since 12 and minutes since the hour):</p>
+						<p><code>var hours = d.getHours();</code></p>
+						<p><code>c.rotate(((hours / 12) + (mins / 720)) * (2 * Math.PI));</code></p>
+						<p>Then we draw the line. We have already set the fillStyle, strokeStyle etc. we don't need to do it again, but we do need to issue a new <code>beginPath</code> command.</p>
+						<p><code>var hourOverhang = 0.2;</code></p>
+						<p><code>var hourHandLength = -0.6 * (document.querySelector('clockcanvas').height / 2);</code></p>
+						<p><code>c.moveTo(0, hourOverhang);</code></p>
+						<p><code>c.lineTo(0, -hourHandLength);</code></p>
+						<p><code>c.stroke();</code></p>
+						<p>Now, we have two lines on our <code>canvas</code> representing the current time:</p>
+						<p><img src="./assets/canvas8.png"></p>
+						<p>To conclude this section, let's put all the code that we've gone through together. You will notice that I've wrapped it up in a function. This is so that we can use it to expand upon as we go on.</p>
+						<p><code>function paintClock(cvs, opt) {</code></p>
+          	<p class="indent"><code>//function that draws a clock on canvas cvs with options opt</code></p>
+          	<p class="indent"><code>var size, d, c, hours, mins, secs; //declare variables</code></p>
+          	<p class="indent"><code>size = cvs.width / 2</code></p>
+          	<p class="indent"><code>d = new Date(); //use the time now to set the clock</code></p>
+          	<p class="indent"><code>mins = d.getMinutes();</code></p>
+          	<p class="indent"><code>hours = d.getHours();</code></p>
+          	<p class="indent"><code>secs = d.getSeconds();</code></p>
+          	<p class="indent"><code></code></p>
+          	<p class="indent"><code>//Hands style</code></p>
+          	<p class="indent"><code>c = cvs.getContext("2d"); //get the context of the canvas to operate with</code></p>
+          	<p class="indent"><code>c.fillStyle = opt.colour; //set the colour and transparency of the hands</code></p>
+          	<p class="indent"><code>c.strokeStyle = opt.colour;</code></p>
+          	<p class="indent"><code>c.lineCap = "round"; //the end of the hands should be round</code></p>
+          	<p class="indent"><code>c.translate(size, size); //set the origin to the centre of the canvas</code></p>
+          	<p class="indent"><code></code></p>
+          	<p class="indent"><code>//Minute Hand</code></p>
+          	<p class="indent"><code>c.beginPath();</code></p>
+          	<p class="indent"><code>c.rotate(((mins / 60) + (secs / 3600)) * 2 * Math.PI); //rotate the canvas to the minute</code></p>
+          	<p class="indent"><code>c.moveTo(0, (opt.minoverh / 100) * size);</code></p>
+          	<p class="indent"><code>c.lineWidth = size * (opt.minwidth / 100); //set the thickness of the hands</code></p>
+          	<p class="indent"><code>c.lineTo(0, (-opt.minlength / 100) * size);</code></p>
+          	<p class="indent"><code>c.stroke(); //draw the minute hand</code></p>
+          	<p class="indent"><code>c.rotate(((mins / 60) + (secs / 3600)) * -2 * Math.PI); //rotate the canvas back to 0</code></p>
+          	<p class="indent"><code></code></p>
+          	<p class="indent"><code>//Hour Hand</code></p>
+          	<p class="indent"><code>c.beginPath();</code></p>
+          	<p class="indent"><code>c.rotate(((hours / 12) + (mins / 720)) * 2 * Math.PI); //rotate the canvas to the hour</code></p>
+          	<p class="indent"><code>c.moveTo(0, (opt.houroverh / 100) * size);</code></p>
+          	<p class="indent"><code>c.lineWidth = size * (opt.hourwidth / 100); //set the thickness of the hands</code></p>
+          	<p class="indent"><code>c.lineTo(0, (-opt.hourlength / 100) * size);</code></p>
+          	<p class="indent"><code>c.stroke(); //draw the hour hand</code></p>
+          	<p class="indent"><code>c.rotate(((hours / 12) + (mins / 720)) * -2 * Math.PI); //rotate the canvas back to 0</code></p>
+	          <p><code>}</code></p>
+            
+						<p> I hope that makes sense. Of course, to make this work, we need a couple of extra things. Our HTML page must contain a <code>canvas</code> element with an explicit size:</p>
+						<p><code>&lt;canvas id='clock' height=300px width=300px&gt;&lt;/canvas&gt;</code></p>
+						<p>and our Javascript must call the paintClock function at the right time with the right parameters. In this example, I've called it when the page has loaded:</p>
+						<p><code>document.addEventListener('DOMContentLoaded', function () {</code></p>
+						<p class="indent"><code>paintClock(document.querySelector("#clock"),</code></p>
+						<p class="indentindent"><code>{ colour: "#000000",</code></p>
+						<p class="indentindent"><code>hourWidth: 7,</code></p>
+						<p class="indentindent"><code>minWidth: 7,</code></p>
+						<p class="indentindent"><code>minoverh: 0.1,</code></p>
+						<p class="indentindent"><code>minlength: 0.9,</code></p>
+						<p class="indentindent"><code>houroverh: 0.2,</code></p>
+						<p class="indentindent"><code>hourlength: 0.5 }</code></p>
+						<p class="indent"><code>)</code></p>
+						<p><code>}</code></p>
+						<p>And here is the fruit of our labour. This clock was drawn at page load time, so is probably a few minutes late by now. We'll add functionality to keep time later</p>
+						<canvas id="page2clock" width="300" height="300"></canvas>
+						<p>We have already made a clock that tells the right time, on the <a href="https://ab00a.github.io/page3.html">next page</a> we will move on to making it look good.</p>
+                    </div>
+                    <div id="midad">
+                    </div>
+                </div>
+            </div>
+            <div id="midright">
+                <div id="midmidleft">
+        </div>
+    </div>
+
+
+
+</body></html>
